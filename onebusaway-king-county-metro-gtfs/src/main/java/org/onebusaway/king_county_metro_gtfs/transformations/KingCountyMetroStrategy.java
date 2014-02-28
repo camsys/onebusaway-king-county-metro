@@ -7,6 +7,7 @@ import java.net.URL;
 import org.onebusaway.gtfs.serialization.GtfsReader;
 import org.onebusaway.gtfs_transformer.GtfsTransformer;
 import org.onebusaway.gtfs_transformer.GtfsTransformerLibrary;
+import org.onebusaway.gtfs_transformer.TransformSpecificationException;
 import org.onebusaway.gtfs_transformer.factory.TransformFactory;
 import org.onebusaway.gtfs_transformer.services.GtfsTransformStrategy;
 import org.onebusaway.gtfs_transformer.services.GtfsTransformStrategyFactory;
@@ -24,16 +25,16 @@ import org.onebusaway.king_county_metro_gtfs.model.PatternPair;
  */
 public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
 
-  private String _baseUrl = "http://onebusaway-puget-sound.googlecode.com/svn/wiki";
+  private String baseUrl = "https://raw.github.com/wiki/camsys/onebusaway-application-modules";
 
-  private String _path;
+  private String path;
 
-  public void setBaseUrl(String baseUrl) {
-    _baseUrl = baseUrl;
+  public void setBaseUrl(String aBaseUrl) {
+    baseUrl = aBaseUrl;
   }
 
-  public void setPath(String path) {
-    _path = path;
+  public void setPath(String aPath) {
+    path = aPath;
   }
 
   @Override
@@ -45,7 +46,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
     factory.addEntityPackage("org.onebusaway.king_county_metro_gtfs.model");
 
     DaoStrategy daoStrategy = new DaoStrategy();
-    daoStrategy.setPath(_path);
+    daoStrategy.setPath(path);
     transformer.addTransform(daoStrategy);
 
     transformer.addTransform(new RemoveMergedTripsStrategy());
@@ -56,14 +57,18 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
     transformer.addTransform(new EnsureStopTimesIncreaseUpdateStrategy());
     transformer.addTransform(new NoTripsWithBlockIdAndFrequenciesStrategy());
 
-    configureCalendarUpdates(transformer, _baseUrl
-        + "/KingCountyMetroCalendarModifications.wiki");
+    configureCalendarUpdates(transformer, baseUrl
+        + "/KingCountyMetroCalendarModifications.mediawiki");
 
-    configureStopNameUpdates(transformer, _baseUrl
-        + "/KingCountyMetroStopNameModifications.wiki");
+    configureStopNameUpdates(transformer, baseUrl
+        + "/KingCountyMetroStopNameModifications.mediawiki");
 
-    GtfsTransformerLibrary.configureTransformation(transformer, _baseUrl
-        + "/KingCountyMetroModifications.wiki");
+    try {
+      GtfsTransformerLibrary.configureTransformation(transformer, baseUrl
+          + "/KingCountyMetroModifications.mediawiki");
+    } catch (TransformSpecificationException e) {
+      throw new RuntimeException(e);
+    }
 
     configureInterlinedRoutesUpdates(transformer);
     transformer.addTransform(new LocalVsExpressUpdateStrategy());

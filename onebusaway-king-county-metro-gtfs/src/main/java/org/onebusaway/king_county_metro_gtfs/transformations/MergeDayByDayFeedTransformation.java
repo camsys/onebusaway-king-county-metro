@@ -140,7 +140,7 @@ public class MergeDayByDayFeedTransformation implements
         calendarsToAdd.add(sc);
       }
 
-      for (ServiceDate serviceDate = fromDate; serviceDate.compareTo(toDate) <= 0; serviceDate = serviceDate.next(tz)) {
+      for (ServiceDate serviceDate = fromDate; serviceDate.compareTo(toDate) <= 0; serviceDate = serviceDate.next()) {
 
         boolean isActive = allServiceDates.contains(serviceDate);
 
