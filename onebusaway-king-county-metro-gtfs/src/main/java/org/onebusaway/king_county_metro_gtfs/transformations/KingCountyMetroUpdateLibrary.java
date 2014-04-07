@@ -112,10 +112,17 @@ public class KingCountyMetroUpdateLibrary {
     if (index != -1)
       numericTripId = numericTripId.substring(0, index);
 
-    int tripId = Integer.parseInt(numericTripId);
-
+    int tripId = -1;
     List<MetroKCTrip> trips = new ArrayList<MetroKCTrip>();
 
+    try {
+      tripId = Integer.parseInt(numericTripId);
+    } catch (NumberFormatException nfe) {
+      _log.error("illegal tripId=" + tripId);
+      return trips; 
+    }
+
+    
     for (MetroKCChangeDate changeDate : changeDates) {
       VersionedId id = new VersionedId(changeDate.getId(), tripId);
       MetroKCTrip metroKCTrip = metrokcDao.getTripForId(id);
