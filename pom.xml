@@ -24,6 +24,14 @@
 
   <repositories>
     <repository>
+      <id>releases-camsys-repo</id>
+      <url>http://developer.onebusaway.org/archiva/repository/releases/</url> 
+    </repository>
+    <repository>
+      <id>snapshots-camsys-repo</id>
+      <url>http://developer.onebusaway.org/archiva/repository/snapshots/</url> 
+    </repository>
+    <repository>
       <id>public.onebusaway.org</id>
       <url>http://nexus.onebusaway.org/content/groups/public/</url>
     </repository>
@@ -41,6 +49,16 @@
   </issueManagement>
 
   <distributionManagement>
+    <repository>
+      <id>releases-camsys-repo</id>
+      <name>OneBusAway Camsys Release Repo</name>
+      <url>http://developer.onebusaway.org/archiva/repository/releases/</url> 
+    </repository>
+    <snapshotRepository>
+      <id>snapshots-camsys-repo</id>
+      <name>OneBusAway Camsys Snapshot Repo</name>
+      <url>http://developer.onebusaway.org/archiva/repository/snapshots/</url> 
+    </snapshotRepository>
     <!-- Even though we specify this in the parent pom, we need to specify it here to have full control over the url -->
     <site>
       <id>${site_id}</id>
