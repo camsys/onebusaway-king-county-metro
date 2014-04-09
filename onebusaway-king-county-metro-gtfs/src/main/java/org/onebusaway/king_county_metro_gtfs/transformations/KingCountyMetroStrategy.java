@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
+import org.apache.log4j.Logger;
 import org.onebusaway.gtfs.serialization.GtfsReader;
 import org.onebusaway.gtfs_transformer.GtfsTransformer;
 import org.onebusaway.gtfs_transformer.GtfsTransformerLibrary;
@@ -111,6 +112,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
       transformer.addTransform(updateStrategy);
 
     } catch (IOException ex) {
+      Logger.getLogger("KingCountyMetroStrategy").error("exception with update:", ex);
       throw new IllegalStateException(ex);
     }
   }

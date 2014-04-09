@@ -118,7 +118,7 @@ public class KingCountyMetroUpdateLibrary {
     try {
       tripId = Integer.parseInt(numericTripId);
     } catch (NumberFormatException nfe) {
-      _log.error("illegal tripId=" + tripId);
+      // bury this as the logs get too large
       return trips; 
     }
 
