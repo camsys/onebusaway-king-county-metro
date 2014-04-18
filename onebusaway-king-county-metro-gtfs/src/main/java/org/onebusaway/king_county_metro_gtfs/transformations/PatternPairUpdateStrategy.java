@@ -366,7 +366,7 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
     int stopSequence = last.getStopSequence() + 1;
 
     for (int i = 0; i <= indexNext; i++) {
-      if (i <= stopTimesNext.size()) {
+      if (i < stopTimesNext.size()) {
         StopTime stopTime = stopTimesNext.remove(i);
         stopTime.setTrip(prev);
         stopTime.setStopSequence(stopSequence++);
