@@ -20,9 +20,9 @@ import org.apache.commons.cli.PosixParser;
 import org.onebusaway.siri.core.SiriCoreModule;
 import org.onebusaway.siri.core.SiriServer;
 import org.onebusaway.siri.core.SiriCommon.ELogRawXmlType;
-import org.onebusaway.siri.core.guice.LifecycleService;
-import org.onebusaway.siri.jetty.SiriJettyModule;
-import org.onebusaway.siri.jetty.StatusServletSource;
+import org.onebusaway.guice.jsr250.LifecycleService;
+//import org.onebusaway.siri.jetty.SiriJettyModule;
+//import org.onebusaway.siri.jetty.StatusServletSource;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -72,13 +72,14 @@ public class LegacyAvlToSiriMain {
     _lifecycleService = lifecycleService;
   }
 
-  @Inject
-  public void setStatusServletSource(StatusServletSource statusServletSource) {
-    /**
-     * This is a no-op primarily here to make sure the status servlet is
-     * instantiated.
-     */
-  }
+  // TODO conver to use onebusaway-status-exporter and onebusaway-guice-jetty-exporter
+//  @Inject
+//  public void setStatusServletSource(StatusServletSource statusServletSource) {
+//    /**
+//     * This is a no-op primarily here to make sure the status servlet is
+//     * instantiated.
+//     */
+//  }
 
   public void run(String[] args) throws ParseException, FileNotFoundException {
 
@@ -97,7 +98,8 @@ public class LegacyAvlToSiriMain {
 
     List<Module> modules = new ArrayList<Module>();
     modules.addAll(SiriCoreModule.getModules());
-    modules.add(new SiriJettyModule());
+    //TODO conver to use onebusaway-status-exporter
+    //modules.add(new SiriJettyModule());  
     modules.add(new LegacyAvlToSiriModule());
     Injector injector = Guice.createInjector(modules);
     injector.injectMembers(this);
