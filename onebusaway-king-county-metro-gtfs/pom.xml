@@ -9,7 +9,7 @@
   <artifactId>onebusaway-king-county-metro-gtfs</artifactId>
   <name>onebusaway-king-county-metro-gtfs</name>
   <description>Modifications and improvements on the base King County Metro GTFS</description>
-
+  <packaging>jar</packaging>
   <dependencies>
     <dependency>
       <groupId>org.onebusaway</groupId>
