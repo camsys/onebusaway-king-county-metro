@@ -40,7 +40,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
 
   @Override
   public void createTransforms(GtfsTransformer transformer) {
-
+    Logger.getLogger("KingCountyMetroStrategy").info("createTransforms");
     transformer.setAgencyId("KCM");
 
     TransformFactory factory = transformer.getTransformFactory();
