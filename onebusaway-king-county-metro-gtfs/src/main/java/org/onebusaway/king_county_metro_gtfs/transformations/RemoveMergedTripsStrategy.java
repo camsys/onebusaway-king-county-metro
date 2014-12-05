@@ -87,10 +87,14 @@ public class RemoveMergedTripsStrategy implements GtfsTransformStrategy {
         new HashSet<String>());
     for (Trip trip : dao.getAllTrips()) {
       String blockId = trip.getBlockId();
-      int index = blockId.indexOf('_');
-      if (index != -1) {
-        String key = blockId.substring(index + 1);
-        m.get(key).add(blockId);
+      if (blockId != null) {
+        int index = blockId.indexOf('_');
+        if (index != -1) {
+          String key = blockId.substring(index + 1);
+          m.get(key).add(blockId);
+        }
+      } else {
+        _log.info("null blockId for trip=" + trip);
       }
     }
 
@@ -101,10 +105,14 @@ public class RemoveMergedTripsStrategy implements GtfsTransformStrategy {
 
     for (Trip trip : dao.getAllTrips()) {
       String blockId = trip.getBlockId();
-      int index = blockId.indexOf('_');
-      if (index != -1) {
-        String key = blockId.substring(index + 1);
-        trip.setBlockId(key);
+      if (blockId != null) {
+        int index = blockId.indexOf('_');
+        if (index != -1) {
+          String key = blockId.substring(index + 1);
+          trip.setBlockId(key);
+        }
+      } else {
+        _log.info("null blockId for trip=" + trip);
       }
     }
 
