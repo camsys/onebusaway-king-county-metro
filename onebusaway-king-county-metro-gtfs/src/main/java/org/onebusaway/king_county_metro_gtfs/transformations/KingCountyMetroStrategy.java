@@ -59,14 +59,14 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
     transformer.addTransform(new NoTripsWithBlockIdAndFrequenciesStrategy());
 
     configureCalendarUpdates(transformer, baseUrl
-        + "/KingCountyMetroCalendarModifications.mediawiki");
+        + "/KingCountyMetroCalendarModifications.md");
 
     configureStopNameUpdates(transformer, baseUrl
-        + "/KingCountyMetroStopNameModifications.mediawiki");
+        + "/KingCountyMetroStopNameModifications.md");
 
     try {
       GtfsTransformerLibrary.configureTransformation(transformer, baseUrl
-          + "/KingCountyMetroModifications.mediawiki");
+          + "/KingCountyMetroModifications.md");
     } catch (TransformSpecificationException e) {
       throw new RuntimeException(e);
     }
