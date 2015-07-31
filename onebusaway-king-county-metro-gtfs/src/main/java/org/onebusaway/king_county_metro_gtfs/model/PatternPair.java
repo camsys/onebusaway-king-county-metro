@@ -12,19 +12,19 @@ public class PatternPair extends IdentityBean<Integer> {
   @CsvField(ignore = true)
   private Integer id;
 
-  @CsvField(name = "Route_Num_1")
+  @CsvField(name = "route_num_1")
   private String routeFrom;
 
-  @CsvField(name = "Route_Num_2")
+  @CsvField(name = "route_num_2")
   private String routeTo;
 
-  @CsvField(optional = true, name = "Stop_ID")
+  @CsvField(optional = true, name = "stop_id")
   private String stopId;
 
-  @CsvField(optional = true, name = "Pattern_ID_1")
+  @CsvField(optional = true, name = "pattern_id_1")
   private String patternFrom;
 
-  @CsvField(optional = true, name = "Pattern_ID_2")
+  @CsvField(optional = true, name = "pattern_id_2")
   private String patternTo;
 
   @Override

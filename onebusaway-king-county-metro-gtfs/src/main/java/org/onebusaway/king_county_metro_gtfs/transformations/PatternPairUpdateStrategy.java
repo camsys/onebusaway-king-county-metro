@@ -64,10 +64,12 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
 
     Map<String, List<Trip>> tripsByBlockId = TripsByBlockInSortedOrder.getTripsByBlockInSortedOrder(dao);
 
+    int modifiedPairs = 0;
     for (List<Trip> trips : tripsByBlockId.values()) {
 
       Trip prev = null;
       boolean prevModified = false;
+      
 
       for (Trip trip : trips) {
 
@@ -76,6 +78,7 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
         if (prev != null && !prevModified) {
           EPairUpdateResult result = checkTripPair(prev, trip);
           modified = result == EPairUpdateResult.MODIFIED;
+          if (modified) modifiedPairs++;
         }
 
         prev = trip;
@@ -85,6 +88,7 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
 
     reset();
     UpdateLibrary.clearDaoCache(dao);
+    _log.info("PatternPairUpdateStrategy complete with " + modifiedPairs + " trips modified");
   }
 
   /****
@@ -298,6 +302,10 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
   private void shiftShapePointsFromPrevToNext(Trip prev, Trip next,
       Stop transitionStop, String key) {
 
+    _log.info("interlining " + prev.getId() + " (" + prev.getRoute() 
+        + ") to " + next.getId() + " (" + next.getRoute() + ") at stop" 
+        + transitionStop + " and key=" + key);
+
     AgencyAndId shapeIdPrev = prev.getShapeId();
     AgencyAndId shapeIdNext = next.getShapeId();
 
@@ -360,7 +368,9 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
   private void shiftFromNextToPrev(Trip prev, List<StopTime> stopTimesPrev,
       Trip next, List<StopTime> stopTimesNext, int indexNext) {
 
-    System.out.println("here: " + indexNext);
+//    System.out.println("here: " + indexNext);
+    _log.info("interlining " + prev.getId() + " (" + prev.getRouteShortName() 
+        + ") to " + next.getId() + " (" + next.getRouteShortName() + ")");
 
     StopTime last = stopTimesPrev.get(stopTimesPrev.size() - 1);
     int stopSequence = last.getStopSequence() + 1;
@@ -415,8 +425,11 @@ public class PatternPairUpdateStrategy implements GtfsTransformStrategy {
 
   private void resetShapePointSequence(List<ShapePoint> shapePoints) {
     int sequence = 0;
-    for (ShapePoint shapePoint : shapePoints)
+    for (ShapePoint shapePoint : shapePoints) {
       shapePoint.setSequence(sequence++);
+      // also unset shape distance traveled
+      shapePoint.setDistTraveled(ShapePoint.MISSING_VALUE);
+    }
   }
 
   private int getStopTimeSeparation(List<StopTime> stopTimesA,
