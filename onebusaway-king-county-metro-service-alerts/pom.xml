@@ -4,7 +4,7 @@
   <parent>
     <artifactId>onebusaway-king-county-metro</artifactId>
     <groupId>org.onebusaway</groupId>
-    <version>0.0.2-st-SNAPSHOT</version>
+    <version>0.0.3-st-SNAPSHOT</version>
   </parent>
   <artifactId>onebusaway-king-county-metro-service-alerts</artifactId>
   <name>onebusaway-king-county-metro-service-alerts</name>
