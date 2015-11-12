@@ -3,7 +3,7 @@
   <parent>
     <artifactId>onebusaway-king-county-metro</artifactId>
     <groupId>org.onebusaway</groupId>
-    <version>0.0.7-st-SNAPSHOT</version>
+    <version>0.0.7-st</version>
   </parent>
   <artifactId>onebusaway-king-county-metro-sandbox</artifactId>
   <name>onebusaway-king-county-metro-sandbox</name>
