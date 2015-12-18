@@ -53,7 +53,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
     transformer.addTransform(new RemoveMergedTripsStrategy());
     transformer.addTransform(new DeduplicateStopsStrategy());
     transformer.addTransform(new DeduplicateRoutesStrategy());
-    transformer.addTransform(new RemoveRepeatedStopTimesStrategy());
+//    transformer.addTransform(new RemoveRepeatedStopTimesStrategy()); // not needed
     transformer.addTransform(new RemoveEmptyBlockTripsStrategy());
     transformer.addTransform(new EnsureStopTimesIncreaseUpdateStrategy());
     transformer.addTransform(new NoTripsWithBlockIdAndFrequenciesStrategy());
@@ -71,7 +71,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
       throw new RuntimeException(e);
     }
 
-    configureInterlinedRoutesUpdates(transformer);
+    //configureInterlinedRoutesUpdates(transformer); // not needed
     transformer.addTransform(new LocalVsExpressUpdateStrategy());
   }
 
