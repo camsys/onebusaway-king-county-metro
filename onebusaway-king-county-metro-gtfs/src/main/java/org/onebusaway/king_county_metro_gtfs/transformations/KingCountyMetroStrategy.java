@@ -55,7 +55,7 @@ public class KingCountyMetroStrategy implements GtfsTransformStrategyFactory {
     transformer.addTransform(new DeduplicateRoutesStrategy());
 //    transformer.addTransform(new RemoveRepeatedStopTimesStrategy()); // not needed
     transformer.addTransform(new RemoveEmptyBlockTripsStrategy());
-//    transformer.addTransform(new EnsureStopTimesIncreaseUpdateStrategy());
+    transformer.addTransform(new EnsureStopTimesIncreaseUpdateStrategy());
     transformer.addTransform(new NoTripsWithBlockIdAndFrequenciesStrategy());
 
     configureCalendarUpdates(transformer, baseUrl
